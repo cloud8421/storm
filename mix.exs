@@ -4,7 +4,7 @@ defmodule Storm.Mixfile do
   def project do
     [app: :storm,
      version: "0.0.1",
-     elixir: "~> 0.14.3",
+     elixir: "~> 0.15.0-dev",
      deps: deps]
   end
 
@@ -26,6 +26,8 @@ defmodule Storm.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    []
+    [
+      {:"erlang-serial", github: "knewter/erlang-serial"}
+    ]
   end
 end
