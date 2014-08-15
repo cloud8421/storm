@@ -26,4 +26,11 @@ defmodule StorageTest do
   test "it can lookup by a value" do
     assert Storage.where(:day, 14) == [@weather_record]
   end
+
+  test "it finds with a function" do
+    [record] = Storage.where(fn(rc) ->
+      rc.month == 8
+    end)
+    assert record == @weather_record
+  end
 end

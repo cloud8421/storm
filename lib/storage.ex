@@ -19,6 +19,10 @@ defmodule Storm.Storage do
     GenServer.call(__MODULE__, {:where, type, value})
   end
 
+  def where(function) do
+    GenServer.call(__MODULE__, {:where, function})
+  end
+
   def empty do
     GenServer.cast(__MODULE__, :empty)
   end
@@ -37,6 +41,11 @@ defmodule Storm.Storage do
     matched = Enum.filter(records, fn(record) ->
       record[type] == value
     end)
+    {:reply, matched, records}
+  end
+
+  def handle_call({:where, ff}, _from, records) do
+    matched = Enum.filter(records, fn(r) -> ff.(r) end)
     {:reply, matched, records}
   end
 
